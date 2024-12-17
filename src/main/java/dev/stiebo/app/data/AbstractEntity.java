@@ -6,11 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Version;
-import lombok.Getter;
-import lombok.Setter;
 
-@Setter
-@Getter
 @MappedSuperclass
 public abstract class AbstractEntity {
 
@@ -22,6 +18,24 @@ public abstract class AbstractEntity {
 
     @Version
     private int version;
+
+    public Long getId() {
+        return id;
+    }
+
+    public AbstractEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public AbstractEntity setVersion(int version) {
+        this.version = version;
+        return this;
+    }
 
     @Override
     public int hashCode() {

@@ -2,22 +2,13 @@ package dev.stiebo.app.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-@Accessors(chain = true)
-@Getter
-@Setter
 @Entity
 @Table(name = "application_user")
 public class User extends AbstractEntity implements UserDetails {
@@ -27,9 +18,6 @@ public class User extends AbstractEntity implements UserDetails {
     private String name;
     @JsonIgnore
     private String password;
-    //    @Enumerated(EnumType.STRING)
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    private Set<Role> roles;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -53,4 +41,45 @@ public class User extends AbstractEntity implements UserDetails {
         return password;
     }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public User setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public User setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public User setRoles(Set<Role> roles) {
+        this.roles = roles;
+        return this;
+    }
+
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public User setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+        return this;
+    }
 }
